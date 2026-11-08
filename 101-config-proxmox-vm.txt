@@ -12,9 +12,8 @@ name: KitPro1-1
 net0: virtio=BC:24:11:DB:1B:00,bridge=vmbr0,firewall=1
 numa: 0
 ostype: l26
-scsi0: local-lvm:vm-101-disk-2,iothread=1,size=32G
+scsi0: sdata:vm-101-disk-1,iothread=1,size=32G
 scsihw: virtio-scsi-single
 smbios1: uuid=0e4afe6d-a177-4431-90c6-dedfdcdc847b
 sockets: 1
-unused0: local-lvm:vm-101-disk-1
 vmgenid: 96640cfd-a35d-4be8-b6a9-69698210970a

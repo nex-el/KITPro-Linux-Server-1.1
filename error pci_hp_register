@@ -1,0 +1,20 @@
+The pci_hp_register failed with error -16
+
+
+Possible to investigate and solution to Disable ACPI in VM
+
+indicates a resource conflict where the Standard Hot Plug PCI Controller (shpchp) driver attempts to register a PCI slot that is already registered by another hotplug driver, typically the ACPI hotplug controller or the PCI Express Hot Plug Controller (pciehp).
+
+This error is most commonly observed in Linux virtual machines (especially on Proxmox with the Q35 machine type) or bare-metal systems with conflicting firmware ACPI tables.
+
+Root Causes
+Duplicate Registration: Both the hypervisor's virtual hardware (ACPI) and the guest OS's PCI hotplug driver try to claim control of the same virtual PCI slot.
+Conflicting Drivers: On physical hardware, the pciehp and shpchp drivers may both attempt to manage the same slot.
+Q35 Machine Type: In Proxmox/QEMU, the Q35 chipset defaults to creating more virtual bridges and slots than necessary, triggering these conflicts in the guest OS. 
+
+Solutions
+1. Disable ACPI in the VM (Most Effective for Proxmox/QEMU) — If you are using Proxmox or QEMU, disabling ACPI for the guest often resolves the error. 
+
+Go to the VM's Options tab.
+Set ACPI to No. 
+Note: Ensure qemu-guest-agent is installed in the guest so it can still receive shutdown commands. 
